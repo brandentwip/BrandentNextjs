@@ -1,0 +1,202 @@
+/* Work page styles (scoped to .pg-work) */
+
+  /* CUSTOM CURSOR */
+
+  /* NAV — Sticky tape style */
+
+  /* HAMBURGER MENU */
+
+  /* MOBILE NAV MENU */
+
+  /* PAGE HEADER */
+  .pg-work .page-hero {
+    min-height: 60vh;
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center;
+    padding: 8rem 4rem 4rem;
+  }
+  .pg-work .page-headline {
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1;
+    letter-spacing: -2px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .pg-work .page-subtitle {
+    font-size: 1rem; font-weight: 400;
+    color: rgba(241,232,214,0.7);
+    max-width: 600px; line-height: 1.7;
+  }
+
+  /* SECTION */
+  .pg-work .section {
+    padding: 6rem 4rem;
+    background: var(--cream);
+    position: relative;
+  }
+  .pg-work .section-tag {
+    display: inline-block;
+    font-size: 0.6rem; font-weight: 800;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 1rem;
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--red);
+  }
+  .pg-work .section-title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 2rem;
+  }
+
+  /* CASE STUDIES GRID */
+  .pg-work .case-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+  .pg-work .case-study-card {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--navy);
+    background: var(--white);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .pg-work .case-study-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(13,13,13,0.15);
+  }
+  .pg-work .case-study-bg {
+    width: 100%;
+    aspect-ratio: 16/12;
+    background: linear-gradient(135deg, var(--navy), var(--red));
+    position: relative;
+  }
+  .pg-work .case-study-bg.cs1 { background: linear-gradient(135deg, #2e4c8b, #fa2d19); }
+  .pg-work .case-study-bg.cs2 { background: linear-gradient(135deg, #1a2f5e, #fa2d19); }
+  .pg-work .case-study-bg.cs3 { background: linear-gradient(135deg, #fa2d19, #c41e0c); }
+  .pg-work .case-study-bg.cs4 { background: linear-gradient(135deg, #2e4c8b, #c41e0c); }
+  .pg-work .case-study-content {
+    padding: 2rem;
+    background: var(--white);
+  }
+  .pg-work .case-study-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.8rem;
+  }
+  .pg-work .case-study-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.8rem;
+  }
+  .pg-work .case-study-desc {
+    font-size: 0.9rem;
+    color: rgba(13,13,13,0.6);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  .pg-work .case-study-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(13,13,13,0.1);
+  }
+  .pg-work .case-study-meta span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(13,13,13,0.5);
+  }
+  .pg-work .case-study-cta {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--red);
+    text-decoration: none;
+  }
+  .pg-work .case-study-cta:hover {
+    text-decoration: underline;
+  }
+
+  /* FEATURED CASE STUDY */
+  .pg-work .featured-case {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 2px solid var(--navy);
+  }
+  .pg-work .featured-case .case-study-bg {
+    aspect-ratio: auto;
+    min-height: 300px;
+  }
+  .pg-work .featured-case .case-study-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem;
+  }
+  .pg-work .featured-case .case-study-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  .pg-work .featured-case .case-study-desc {
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+  }
+
+  /* RESULTS GRID */
+  .pg-work .results-section {
+    background: var(--navy);
+    color: var(--cream);
+    margin: 4rem 0;
+  }
+  .pg-work .results-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+  .pg-work .result-card {
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid rgba(241,232,214,0.2);
+  }
+  .pg-work .result-number {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--red);
+    margin-bottom: 0.8rem;
+  }
+  .pg-work .result-label {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: rgba(241,232,214,0.7);
+  }
+
+  /* FOOTER */
+
+  /* REVEAL ANIMATION */
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    
+    .pg-work .page-hero { padding: 8rem 2rem 4rem; }
+    .pg-work .section { padding: 4rem 2rem; }
+    .pg-work .case-grid { grid-template-columns: 1fr; }
+    .pg-work .featured-case { grid-template-columns: 1fr; }
+    .pg-work .featured-case .case-study-bg { aspect-ratio: 16/9; }
+    .pg-work .results-grid { grid-template-columns: repeat(2, 1fr); }
+  }

@@ -1,0 +1,251 @@
+/* Process page styles (scoped to .pg-process) */
+
+  /* CUSTOM CURSOR */
+
+  /* NAV — Sticky tape style */
+
+  /* HAMBURGER MENU */
+
+  /* MOBILE NAV MENU */
+
+  /* PAGE HEADER */
+  .pg-process .page-hero {
+    min-height: 60vh;
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center;
+    padding: 8rem 4rem 4rem;
+  }
+  .pg-process .page-headline {
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1;
+    letter-spacing: -2px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .pg-process .page-subtitle {
+    font-size: 1rem; font-weight: 400;
+    color: rgba(241,232,214,0.7);
+    max-width: 600px; line-height: 1.7;
+  }
+
+  /* SECTION */
+  .pg-process .section {
+    padding: 6rem 4rem;
+    background: var(--cream);
+    position: relative;
+  }
+  .pg-process .section-tag {
+    display: inline-block;
+    font-size: 0.6rem; font-weight: 800;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 1rem;
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--red);
+  }
+  .pg-process .section-title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 2rem;
+  }
+  .pg-process .section-desc {
+    font-size: 1rem; font-weight: 400;
+    color: rgba(13,13,13,0.6);
+    max-width: 500px; line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  /* PROCESS VERTICAL */
+  .pg-process .process-vertical {
+    max-width: 800px;
+    margin: 3rem 0;
+    position: relative;
+    padding-left: 60px;
+  }
+  .pg-process .process-vertical::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--red), var(--navy));
+  }
+  .pg-process .process-step {
+    margin-bottom: 3rem;
+    position: relative;
+  }
+  .pg-process .process-step::before {
+    content: '';
+    position: absolute;
+    left: -32px;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    background: var(--red);
+    border: 3px solid var(--cream);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px var(--navy);
+  }
+  .pg-process .step-num {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--red);
+    margin-bottom: 0.5rem;
+  }
+  .pg-process .step-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.8rem;
+  }
+  .pg-process .step-desc {
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgba(13,13,13,0.6);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .pg-process .step-details {
+    background: var(--white);
+    border: 1px solid rgba(13,13,13,0.1);
+    padding: 1.5rem;
+    border-radius: 4px;
+  }
+  .pg-process .step-details h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+  .pg-process .step-details ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .pg-process .step-details li {
+    font-size: 0.85rem;
+    color: rgba(13,13,13,0.6);
+    padding: 0.3rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .pg-process .step-details li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--red);
+    font-weight: 700;
+  }
+
+  /* TIMELINE */
+  .pg-process .timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .pg-process .timeline-item {
+    position: relative;
+  }
+  .pg-process .timeline-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--red);
+    border: 3px solid var(--navy);
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+  }
+  .pg-process .timeline-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--navy);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .pg-process .timeline-detail {
+    font-size: 0.8rem;
+    color: rgba(13,13,13,0.6);
+    text-align: center;
+  }
+
+  /* PRINCIPLES */
+  .pg-process .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .pg-process .principle-card {
+    background: var(--white);
+    border: 2px solid var(--navy);
+    padding: 2rem;
+    text-align: center;
+  }
+  .pg-process .principle-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .pg-process .principle-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.8rem;
+  }
+  .pg-process .principle-desc {
+    font-size: 0.9rem;
+    color: rgba(13,13,13,0.6);
+    line-height: 1.6;
+  }
+
+  /* COMMITMENT SECTION */
+  .pg-process .commitment {
+    background: var(--navy);
+    color: var(--cream);
+    margin: 4rem 0;
+    padding: 4rem;
+    border-radius: 0;
+  }
+  .pg-process .commitment h3 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+  }
+  .pg-process .commitment-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .pg-process .commitment-item {
+    display: flex;
+    gap: 1rem;
+  }
+  .pg-process .commitment-check {
+    color: var(--red);
+    font-weight: 900;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .pg-process .commitment-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+
+  /* REVEAL ANIMATION */
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    
+    .pg-process .page-hero { padding: 8rem 2rem 4rem; }
+    .pg-process .section { padding: 4rem 2rem; }
+    .pg-process .timeline { grid-template-columns: repeat(2, 1fr); }
+    .pg-process .principles-grid { grid-template-columns: 1fr; }
+    .pg-process .commitment-list { grid-template-columns: 1fr; }
+  }

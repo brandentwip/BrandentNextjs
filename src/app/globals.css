@@ -1,0 +1,175 @@
+/* Shared site styles: reset, cursor, nav, mobile nav, footer, scroll-reveal. Edit here to change them on every page. */
+@import "./globals-generic.css";
+
+  :root {
+    --navy: #2e4c8b;
+    --red: #fa2d19;
+    --cream: #f1e8d6;
+    --navy-dark: #1a2f5e;
+    --red-dark: #c41e0c;
+    --cream-dark: #e8d9c0;
+    --black: #0d0d0d;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--cream);
+    color: var(--black);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    width: 16px; height: 16px;
+    background: var(--red);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+    mix-blend-mode: multiply;
+  }
+  .cursor-ring {
+    width: 40px; height: 40px;
+    border: 2px solid var(--navy);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 4rem;
+    transition: background 0.3s ease, backdrop-filter 0.3s ease;
+  }
+  .nav-logo {
+    font-size: 1.6rem; font-weight: 900; color: var(--navy-dark);
+    letter-spacing: -1px; text-decoration: none;
+    background: var(--cream); padding: 0.3rem 1rem;
+    transform: rotate(-1deg); display: inline-block; z-index: 1001;
+    margin-right: 3rem; transition: background 0.3s ease, color 0.3s ease;
+  }
+  .nav-container { display: flex; align-items: center; gap: 2rem; flex: 1; margin-left: auto; justify-content: flex-end; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(241,232,214,0.85); position: relative; cursor: none;
+    transition: color 0.3s ease;
+  }
+  .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-cta {
+    font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    background: var(--cream); color: var(--navy-dark); border: none;
+    padding: 0.6rem 1.5rem; cursor: none; text-decoration: none;
+    transform: rotate(0.5deg); display: inline-block;
+    transition: transform 0.2s ease, background 0.3s ease, color 0.3s ease;
+  }
+  .nav-cta:hover { transform: rotate(-1deg) scale(1.05); }
+
+  .hamburger { display: none; flex-direction: column; cursor: pointer; z-index: 1001; background: none; border: none; gap: 5px; }
+  .hamburger span { width: 25px; height: 3px; background: var(--black); transition: all 0.3s ease; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(10px, 10px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+
+  .mobile-nav { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--navy); z-index: 999; padding-top: 6rem; overflow-y: auto; }
+  .mobile-nav.active { display: block; }
+  .mobile-nav-links { list-style: none; padding: 2rem 1.5rem; display: flex; flex-direction: column; gap: 0; }
+  .mobile-nav-links li { border-bottom: 1px solid rgba(241, 232, 214, 0.2); }
+  .mobile-nav-links li:first-child { border-top: 1px solid rgba(241, 232, 214, 0.2); }
+  .mobile-nav-links a { display: block; padding: 1.2rem 0; text-decoration: none; font-size: 1rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream); transition: color 0.2s ease; }
+  .mobile-nav-links a:hover { color: var(--red); }
+  .mobile-nav-cta { display: block; background: var(--red); color: var(--white); text-align: center; padding: 1rem; margin: 2rem 1.5rem 0; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; }
+
+  /* HERO */
+
+  /* MARQUEE */
+
+  /* SERVICES */
+
+  /* =================== WORK / PORTFOLIO =================== */
+
+  /* ── UPDATED WORK CARDS with illustrated backgrounds ── */
+
+  /* Card 1 — Zestora Foods: food & harvest colours */
+
+  /* Card 2 — NovaCraft: tech/social dark with phones */
+
+  /* Card 3 — Apex Realty: architectural dark gold */
+
+  /* Card 4 — LuxWear: rich rose editorial */
+
+  /* Shared overlay */
+  /* Always-visible bottom info strip */
+
+  /* PROCESS */
+
+  /* CLIENTS */
+
+  /* RESULTS */
+
+  /* TESTIMONIALS */
+
+  /* MANIFESTO */
+
+  /* TEAM */
+
+  /* CTA */
+
+  /* FOOTER */
+  footer { background: var(--navy-dark); padding: 4rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; align-items: start; border-top: 4px solid var(--red); }
+  .footer-brand-name { font-size: 2.5rem; font-weight: 900; color: var(--cream); letter-spacing: -2px; text-transform: uppercase; margin-bottom: 1rem; }
+  .footer-tagline { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(241,232,214,0.4); margin-bottom: 1.5rem; }
+  .footer-social { display: flex; gap: 0.8rem; }
+  .social-btn { width: 36px; height: 36px; border: 1px solid rgba(241,232,214,0.2); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 800; color: rgba(241,232,214,0.5); text-decoration: none; cursor: none; transition: background 0.2s ease, color 0.2s ease; }
+  .social-btn:hover { background: var(--red); color: var(--white); border-color: var(--red); }
+  .footer-col-title { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(241,232,214,0.4); margin-bottom: 1.5rem; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+  .footer-links a { text-decoration: none; font-size: 0.85rem; font-weight: 500; color: rgba(241,232,214,0.6); cursor: none; transition: color 0.2s ease; }
+  .footer-links a:hover { color: var(--cream); }
+  .footer-bottom { background: var(--navy-dark); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(241,232,214,0.1); font-size: 0.7rem; font-weight: 500; color: rgba(241,232,214,0.3); letter-spacing: 0.05em; }
+
+  /* SCROLL ANIMATIONS */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    nav { padding: 1rem 2rem; }
+    footer { grid-template-columns: 2fr 1fr 1fr; }
+  }
+  @media (max-width: 900px) {
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+    nav { padding: 1rem 1.5rem; background: var(--cream) !important; flex-wrap: wrap; align-items: center; }
+    .nav-logo { font-size: 1.2rem; padding: 0.2rem 0.8rem; background: var(--navy-dark) !important; color: var(--cream) !important; }
+    .nav-container { display: none; }
+    .hamburger { display: flex; }
+    footer { grid-template-columns: 1fr; padding: 2rem 1.5rem; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+  }
+
+/* ── Navbar states (the nav turns into a cream bar after scrolling 100px) ── */
+nav .nav-cta { background: #fa2d19; color: #f1e8d6; }
+nav.scrolled { background: rgba(241,232,214,0.95); backdrop-filter: blur(10px); }
+nav.scrolled .nav-logo { background: #1a2f5e; color: #f1e8d6; }
+nav.scrolled .nav-cta { background: #fa2d19; color: #ffffff; }
+nav.scrolled .nav-links a { color: #0d0d0d; }

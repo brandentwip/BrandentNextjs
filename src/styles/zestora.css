@@ -1,0 +1,138 @@
+/* Zestora case study styles (scoped to .pg-zestora) */
+
+  .pg-zestora {
+    --navy: #2e4c8b;
+    --red: #fa2d19;
+    --cream: #f1e8d6;
+    --navy-dark: #1a2f5e;
+    --red-dark: #c41e0c;
+    --black: #0d0d0d;
+    --white: #ffffff;
+    --zest-orange: #f97316;
+    --zest-green: #16a34a;
+  }
+  .pg-zestora { font-family: 'Montserrat', sans-serif; background: var(--cream); color: var(--black); overflow-x: hidden; }
+
+  /* NAV */
+
+  /* HERO */
+  .pg-zestora .case-hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #0d1f0a 0%, #16a34a 50%, #f97316 100%);
+    display: flex; align-items: flex-end;
+    padding: 10rem 4rem 5rem;
+    position: relative; overflow: hidden;
+  }
+  .pg-zestora .case-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(0deg,rgba(255,255,255,0.03)0px,rgba(255,255,255,0.03)1px,transparent 1px,transparent 80px),
+      repeating-linear-gradient(90deg,rgba(255,255,255,0.03)0px,rgba(255,255,255,0.03)1px,transparent 1px,transparent 80px);
+  }
+  /* Big food illustration via CSS */
+  .pg-zestora .hero-art {
+    position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);
+    width: 420px; height: 420px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .pg-zestora .plate {
+    width: 380px; height: 380px; border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #fff8f0, #fde68a 60%, #f97316);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.4), inset 0 -10px 30px rgba(249,115,22,0.3);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .pg-zestora .plate::after {
+    content: '';
+    position: absolute; inset: 20px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.3);
+  }
+  .pg-zestora .plate-inner {
+    font-size: 9rem; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+    animation: spin-slow-zestora 20s linear infinite;
+  }
+  @keyframes spin-slow-zestora { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
+  .pg-zestora .food-dots {
+    position: absolute; inset: 0; border-radius: 50%;
+    background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.15) 0%, transparent 50%);
+  }
+  .pg-zestora .case-tag {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.25em;
+    text-transform: uppercase; color: rgba(255,255,255,0.6);
+    margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem;
+  }
+  .pg-zestora .case-tag::before { content: ''; width: 30px; height: 2px; background: var(--zest-orange); }
+  .pg-zestora .case-title {
+    font-size: clamp(3rem, 7vw, 7rem); font-weight: 900;
+    color: var(--white); line-height: 0.9; letter-spacing: -3px;
+    text-transform: uppercase; margin-bottom: 2rem;
+  }
+  .pg-zestora .case-title span { color: var(--zest-orange); display: block; }
+  .pg-zestora .meta-item { }
+  .pg-zestora .meta-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 0.3rem; }
+
+  /* SECTIONS */
+
+  .pg-zestora .challenge { background: var(--white); }
+  .pg-zestora .challenge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .pg-zestora .section-text { font-size: 0.95rem; font-weight: 400; color: rgba(13,13,13,0.65); line-height: 1.9; }
+  .pg-zestora .section-text + .section-text { margin-top: 1rem; }
+
+  /* Brand board visual */
+  .pg-zestora .brand-board {
+    background: var(--black); border-radius: 0; padding: 3rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  }
+  .pg-zestora .color-swatch {
+    height: 120px; display: flex; align-items: flex-end; padding: 1rem;
+    font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .pg-zestora .sw-orange { background: #f97316; color: var(--white); }
+  .pg-zestora .sw-green { background: #16a34a; color: var(--white); }
+  .pg-zestora .sw-cream { background: #fef3c7; color: var(--black); }
+  .pg-zestora .sw-dark { background: #0d1f0a; color: var(--white); }
+
+  /* Stats row */
+  .pg-zestora .stats-row {
+    background: var(--zest-orange); padding: 4rem;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    border: 3px solid var(--black);
+  }
+  .pg-zestora .stat-col { text-align: center; padding: 2rem; border-right: 2px solid rgba(0,0,0,0.15); }
+  .pg-zestora .stat-lbl { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-top: 0.5rem; }
+
+  /* Gallery grid */
+  .pg-zestora .gallery { background: var(--navy); padding: 6rem 4rem; }
+  .pg-zestora .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; max-width: 1100px; margin: 3rem auto 0; }
+  .pg-zestora .gallery-card {
+    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    font-size: 4rem; position: relative; overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.08);
+  }
+  .pg-zestora .gc-1 { background: linear-gradient(135deg, #0d1f0a, #16a34a); }
+  .pg-zestora .gc-2 { background: linear-gradient(135deg, #f97316, #fbbf24); }
+  .pg-zestora .gc-3 { background: linear-gradient(135deg, #16a34a, #f97316); }
+  .pg-zestora .gc-4 { background: linear-gradient(135deg, #fef3c7, #f97316); }
+  .pg-zestora .gc-5 { background: linear-gradient(135deg, #0d1f0a, #f97316); }
+  .pg-zestora .gc-6 { background: linear-gradient(135deg, #16a34a, #0d1f0a); }
+
+  /* Next case */
+  .pg-zestora .btn-next {
+    display: inline-block; background: var(--red); color: var(--white);
+    font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 1rem 3rem; text-decoration: none;
+    transform: rotate(-0.5deg); transition: transform 0.2s ease;
+  }
+  .pg-zestora .btn-next:hover { transform: rotate(1deg) scale(1.05); }
+
+  @media (max-width: 900px) {
+    .pg-zestora .case-hero { padding: 8rem 1.5rem 3rem; }
+    .pg-zestora .hero-art { display: none; }
+    .pg-zestora .case-title { font-size: clamp(2.5rem, 8vw, 4rem); }
+    .pg-zestora .challenge-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .pg-zestora .stats-row { grid-template-columns: 1fr; }
+    .pg-zestora .stat-col { border-right: none; border-bottom: 2px solid rgba(0,0,0,0.1); }
+    .pg-zestora .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .pg-zestora .gallery { padding: 3rem 1.5rem; }
+  }

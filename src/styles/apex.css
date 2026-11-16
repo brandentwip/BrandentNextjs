@@ -1,0 +1,99 @@
+/* Apex case study styles (scoped to .pg-apex) */
+
+  .pg-apex {
+    --navy: #2e4c8b; --red: #fa2d19; --cream: #f1e8d6;
+    --navy-dark: #1a2f5e; --black: #0d0d0d; --white: #ffffff;
+    --apex-gold: #d4a843; --apex-dark: #0a0a14; --apex-slate: #64748b;
+  }
+  .pg-apex { font-family: 'Montserrat', sans-serif; background: var(--cream); color: var(--black); overflow-x: hidden; }
+
+  /* HERO */
+  .pg-apex .case-hero {
+    min-height: 100vh; background: var(--apex-dark);
+    display: flex; align-items: flex-end;
+    padding: 10rem 4rem 5rem; position: relative; overflow: hidden;
+  }
+  .pg-apex .hero-building {
+    position: absolute; right: 5rem; bottom: 0;
+    width: 320px; display: flex; align-items: flex-end; gap: 1rem;
+  }
+  .pg-apex .building {
+    background: linear-gradient(to top, var(--apex-gold), rgba(212,168,67,0.3));
+    border-radius: 4px 4px 0 0; position: relative; overflow: hidden;
+  }
+  .pg-apex .b1 { width: 80px; height: 500px; }
+  .pg-apex .b2 { width: 110px; height: 420px; }
+  .pg-apex .b3 { width: 65px; height: 340px; }
+  .pg-apex .b4 { width: 55px; height: 260px; }
+  .pg-apex .b-windows {
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 18px, rgba(0,0,0,0.5) 18px, rgba(0,0,0,0.5) 20px),
+      repeating-linear-gradient(90deg, transparent, transparent 12px, rgba(0,0,0,0.5) 12px, rgba(0,0,0,0.5) 14px);
+  }
+  .pg-apex .building-glow { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 150%; height: 40%; background: radial-gradient(ellipse, rgba(212,168,67,0.3), transparent 70%); pointer-events: none; }
+
+  /* Ground glow */
+  .pg-apex .ground-glow { position: absolute; bottom: 0; left: 0; right: 0; height: 200px; background: linear-gradient(to top, rgba(212,168,67,0.08), transparent); pointer-events: none; }
+
+  /* Grid lines */
+  .pg-apex .hero-grid-lines { position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg,rgba(212,168,67,0.04)0px,rgba(212,168,67,0.04)1px,transparent 1px,transparent 80px), repeating-linear-gradient(90deg,rgba(212,168,67,0.04)0px,rgba(212,168,67,0.04)1px,transparent 1px,transparent 80px); }
+  .pg-apex .case-tag { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(212,168,67,0.7); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem; }
+  .pg-apex .case-tag::before { content: ''; width: 30px; height: 2px; background: var(--apex-gold); }
+  .pg-apex .case-title { font-size: clamp(3rem, 7vw, 7rem); font-weight: 900; color: var(--white); line-height: 0.9; letter-spacing: -3px; text-transform: uppercase; margin-bottom: 2rem; }
+  .pg-apex .case-title .gold { color: var(--apex-gold); }
+  .pg-apex .meta-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 0.3rem; }
+
+  .pg-apex .stats-row { background: var(--apex-gold); padding: 4rem; display: grid; grid-template-columns: repeat(3,1fr); gap: 0; }
+  .pg-apex .stat-col { text-align: center; padding: 2rem; border-right: 2px solid rgba(0,0,0,0.15); }
+  .pg-apex .stat-lbl { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(0,0,0,0.5); margin-top: 0.5rem; }
+
+  /* Website mockup */
+  .pg-apex .browser-mock { background: #1a1a2e; border-radius: 8px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.3); }
+  .pg-apex .browser-bar { background: #2d2d44; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .pg-apex .b-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .pg-apex .b-d1 { background: #ff5f57; }
+  .pg-apex .b-d2 { background: #febc2e; }
+  .pg-apex .b-d3 { background: #28c840; }
+  .pg-apex .b-url { flex: 1; background: rgba(255,255,255,0.07); border-radius: 20px; padding: 0.3rem 1rem; font-size: 0.65rem; color: rgba(255,255,255,0.4); margin-left: 0.5rem; }
+  .pg-apex .browser-content { padding: 0; }
+  .pg-apex .mock-hero { background: linear-gradient(160deg, var(--apex-dark), #1a1a2e); padding: 3rem; display: flex; gap: 2rem; align-items: center; justify-content: space-between; min-height: 200px; }
+  .pg-apex .mock-title { font-size: 2rem; font-weight: 900; color: var(--white); letter-spacing: -1px; line-height: 1; }
+  .pg-apex .mock-title span { color: var(--apex-gold); }
+  .pg-apex .mock-cta { background: var(--apex-gold); color: var(--black); font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.6rem 1.2rem; border: none; cursor: default; white-space: nowrap; }
+  .pg-apex .mock-cards { background: #111; padding: 1.5rem; display: flex; gap: 1rem; overflow: hidden; }
+  .pg-apex .mock-card { flex: 0 0 140px; background: rgba(212,168,67,0.1); border: 1px solid rgba(212,168,67,0.2); padding: 1rem; border-radius: 4px; }
+  .pg-apex .mc-label { font-size: 0.5rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--apex-gold); margin-bottom: 0.5rem; }
+  .pg-apex .mc-price { font-size: 0.85rem; font-weight: 900; color: var(--white); }
+
+  /* Feature grid */
+  .pg-apex .feature-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border: 2px solid var(--black); margin-top: 3rem; }
+  .pg-apex .feature-item { padding: 2.5rem 2rem; border-right: 2px solid var(--black); }
+  .pg-apex .feature-item:last-child { border-right: none; }
+  .pg-apex .f-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .pg-apex .f-title { font-size: 0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: -0.3px; margin-bottom: 0.5rem; }
+  .pg-apex .f-desc { font-size: 0.78rem; color: rgba(13,13,13,0.6); line-height: 1.7; }
+
+  /* Gallery */
+  .pg-apex .gallery { background: var(--apex-dark); padding: 6rem 4rem; }
+  .pg-apex .gallery-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; max-width: 1100px; margin: 3rem auto 0; }
+  .pg-apex .gallery-card { aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; position: relative; overflow: hidden; }
+  .pg-apex .gc-a { background: linear-gradient(135deg, #0a0a14, #d4a843); }
+  .pg-apex .gc-b { background: linear-gradient(135deg, #1a1a2e, #64748b); }
+  .pg-apex .gc-c { background: linear-gradient(135deg, #d4a843, #f1e8d6, #d4a843); }
+  .pg-apex .gc-d { background: linear-gradient(135deg, #0a0a14, #1a2f5e); }
+  .pg-apex .gc-e { background: linear-gradient(135deg, #64748b, #0a0a14); }
+  .pg-apex .gc-f { background: linear-gradient(135deg, #2e4c8b, #d4a843); }
+  .pg-apex .btn-next { display: inline-block; background: var(--red); color: var(--white); font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 1rem 3rem; text-decoration: none; transition: transform 0.2s ease; }
+  .pg-apex .btn-next:hover { transform: scale(1.05); }
+
+  @media (max-width: 900px) {
+    .pg-apex .case-hero { padding: 8rem 1.5rem 3rem; }
+    .pg-apex .hero-building { display: none; }
+    .pg-apex .stats-row { grid-template-columns: 1fr; }
+    .pg-apex .stat-col { border-right: none; border-bottom: 2px solid rgba(0,0,0,0.1); }
+    .pg-apex .feature-grid { grid-template-columns: 1fr; }
+    .pg-apex .feature-item { border-right: none; border-bottom: 2px solid var(--black); }
+    .pg-apex .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .pg-apex .gallery { padding: 3rem 1.5rem; }
+    .pg-apex .mock-cards { flex-wrap: wrap; }
+  }

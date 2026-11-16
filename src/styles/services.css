@@ -1,0 +1,264 @@
+/* Services page styles (scoped to .pg-services) */
+
+  /* CUSTOM CURSOR */
+
+  /* NAV */
+
+  /* HAMBURGER MENU */
+
+  /* MOBILE NAV MENU */
+
+  /* PAGE HEADER */
+  .pg-services .page-hero {
+    min-height: 60vh;
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center;
+    padding: 8rem 4rem 4rem;
+  }
+  .pg-services .page-headline {
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1;
+    letter-spacing: -2px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .pg-services .page-subtitle {
+    font-size: 1rem; font-weight: 400;
+    color: rgba(241,232,214,0.7);
+    max-width: 600px; line-height: 1.7;
+  }
+
+  /* SECTION */
+  .pg-services .section {
+    padding: 6rem 4rem;
+    background: var(--cream);
+    position: relative;
+  }
+  .pg-services .section-tag {
+    display: inline-block;
+    font-size: 0.6rem; font-weight: 800;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 1rem;
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--red);
+  }
+  .pg-services .section-title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 2rem;
+  }
+  .pg-services .section-desc {
+    font-size: 1rem; font-weight: 400;
+    color: rgba(13,13,13,0.6);
+    max-width: 500px; line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  /* SERVICE CARD DETAILED */
+  .pg-services .service-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+  .pg-services .service-detail-card {
+    background: var(--white);
+    border: 2px solid var(--navy);
+    padding: 2rem;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  .pg-services .service-detail-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(13,13,13,0.1);
+  }
+  .pg-services .service-icon-big {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  .pg-services .service-detail-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.8rem;
+  }
+  .pg-services .service-detail-desc {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: rgba(13,13,13,0.6);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .pg-services .service-features {
+    list-style: none;
+    font-size: 0.85rem;
+  }
+  .pg-services .service-features li {
+    padding: 0.5rem 0;
+    color: rgba(13,13,13,0.5);
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  .pg-services .service-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--red);
+    font-weight: 700;
+  }
+
+  /* PROCESS SECTION */
+  .pg-services .process-flow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .pg-services .process-item {
+    background: var(--white);
+    border: 2px solid var(--navy);
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+  }
+  .pg-services .process-item::after {
+    content: '→';
+    position: absolute;
+    right: -2.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    color: var(--red);
+  }
+  .pg-services .process-item:last-child::after {
+    display: none;
+  }
+  .pg-services .process-step-num {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--red);
+    margin-bottom: 1rem;
+  }
+  .pg-services .process-step-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.8rem;
+  }
+  .pg-services .process-step-desc {
+    font-size: 0.85rem;
+    color: rgba(13,13,13,0.6);
+    line-height: 1.6;
+  }
+
+  /* PRICING */
+  .pg-services .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .pg-services .pricing-card {
+    background: var(--white);
+    border: 2px solid var(--navy);
+    padding: 2.5rem;
+    position: relative;
+  }
+  .pg-services .pricing-card.featured {
+    border-color: var(--red);
+    background: var(--red);
+    color: var(--white);
+  }
+  .pg-services .pricing-card.featured .pricing-name,
+  .pg-services .pricing-card.featured .pricing-price {
+    color: var(--white);
+  }
+  .pg-services .pricing-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1rem;
+    background: rgba(250,45,25,0.1);
+    padding: 0.3rem 0.8rem;
+  }
+  .pg-services .pricing-card.featured .pricing-tag {
+    background: rgba(255,255,255,0.2);
+    color: var(--white);
+  }
+  .pg-services .pricing-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 1rem;
+  }
+  .pg-services .pricing-price {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+  }
+  .pg-services .pricing-list {
+    list-style: none;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+  .pg-services .pricing-list li {
+    padding: 0.6rem 0;
+    color: rgba(13,13,13,0.6);
+  }
+  .pg-services .pricing-card.featured .pricing-list li {
+    color: rgba(255,255,255,0.8);
+  }
+  .pg-services .pricing-list li::before {
+    content: '✓ ';
+    color: var(--red);
+    font-weight: 700;
+    margin-right: 0.5rem;
+  }
+  .pg-services .pricing-card.featured .pricing-list li::before {
+    color: var(--cream);
+  }
+  .pg-services .pricing-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background: var(--red);
+    color: var(--white);
+    border: 2px solid var(--red);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    cursor: none;
+    transition: all 0.3s ease;
+  }
+  .pg-services .pricing-card.featured .pricing-btn {
+    background: var(--white);
+    color: var(--red);
+  }
+  .pg-services .pricing-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  /* FOOTER */
+
+  /* REVEAL ANIMATION */
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    
+    .pg-services .page-hero { padding: 5rem 1.5rem 2rem; }
+    .pg-services .section { padding: 2.5rem 1.5rem; }
+    .pg-services .service-detail-grid { grid-template-columns: 1fr; }
+    .pg-services .process-flow { grid-template-columns: 1fr; }
+    .pg-services .process-item::after { display: none; }
+    .pg-services .pricing-grid { grid-template-columns: 1fr; }
+  }

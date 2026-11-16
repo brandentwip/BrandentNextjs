@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brandent — The Marketing Enterprise</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #2e4c8b;
+    --red: #fa2d19;
+    --cream: #f1e8d6;
+    --navy-dark: #1a2f5e;
+    --red-dark: #c41e0c;
+    --cream-dark: #e8d9c0;
+    --black: #0d0d0d;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--cream);
+    color: var(--black);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    width: 16px; height: 16px;
+    background: var(--red);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+    mix-blend-mode: multiply;
+  }
+  .cursor-ring {
+    width: 40px; height: 40px;
+    border: 2px solid var(--navy);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 4rem;
+    transition: background 0.3s ease, backdrop-filter 0.3s ease;
+  }
+  .nav-logo {
+    font-size: 1.6rem; font-weight: 900; color: var(--navy-dark);
+    letter-spacing: -1px; text-decoration: none;
+    background: var(--cream); padding: 0.3rem 1rem;
+    transform: rotate(-1deg); display: inline-block; z-index: 1001;
+    margin-right: 3rem; transition: background 0.3s ease, color 0.3s ease;
+  }
+  .nav-container { display: flex; align-items: center; gap: 2rem; flex: 1; margin-left: auto; justify-content: flex-end; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(241,232,214,0.85); position: relative; cursor: none;
+    transition: color 0.3s ease;
+  }
+  .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-cta {
+    font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    background: var(--cream); color: var(--navy-dark); border: none;
+    padding: 0.6rem 1.5rem; cursor: none; text-decoration: none;
+    transform: rotate(0.5deg); display: inline-block;
+    transition: transform 0.2s ease, background 0.3s ease, color 0.3s ease;
+  }
+  .nav-cta:hover { transform: rotate(-1deg) scale(1.05); }
+
+  .hamburger { display: none; flex-direction: column; cursor: pointer; z-index: 1001; background: none; border: none; gap: 5px; }
+  .hamburger span { width: 25px; height: 3px; background: var(--black); transition: all 0.3s ease; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(10px, 10px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+
+  .mobile-nav { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--navy); z-index: 999; padding-top: 6rem; overflow-y: auto; }
+  .mobile-nav.active { display: block; }
+  .mobile-nav-links { list-style: none; padding: 2rem 1.5rem; display: flex; flex-direction: column; gap: 0; }
+  .mobile-nav-links li { border-bottom: 1px solid rgba(241, 232, 214, 0.2); }
+  .mobile-nav-links li:first-child { border-top: 1px solid rgba(241, 232, 214, 0.2); }
+  .mobile-nav-links a { display: block; padding: 1.2rem 0; text-decoration: none; font-size: 1rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream); transition: color 0.2s ease; }
+  .mobile-nav-links a:hover { color: var(--red); }
+  .mobile-nav-cta { display: block; background: var(--red); color: var(--white); text-align: center; padding: 1rem; margin: 2rem 1.5rem 0; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; background: var(--navy); position: relative;
+    overflow: hidden; display: flex; align-items: center;
+    padding: 8rem 4rem 4rem;
+  }
+  .hero-texture { position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 80%, rgba(250,45,25,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(241,232,214,0.08) 0%, transparent 40%); pointer-events: none; }
+  .hero-grid { position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 60px), repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 60px); }
+  .hero-content { position: relative; z-index: 2; max-width: 1200px; width: 100%; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.8rem; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 2rem; }
+  .hero-eyebrow::before { content: ''; width: 40px; height: 2px; background: var(--red); }
+  .hero-headline { font-size: clamp(4rem, 9vw, 9rem); font-weight: 900; color: var(--cream); line-height: 0.9; letter-spacing: -3px; margin-bottom: 2rem; text-transform: uppercase; }
+  .hero-headline .outline { -webkit-text-stroke: 2px var(--cream); color: transparent; }
+  .hero-headline .red-word { color: var(--red); }
+  .hero-sub { font-size: 1rem; font-weight: 400; color: rgba(241,232,214,0.6); max-width: 400px; line-height: 1.7; margin-bottom: 3rem; }
+  .hero-ctas { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--red); color: var(--white); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 1rem 2.5rem; text-decoration: none; display: inline-block; transform: rotate(-0.5deg); transition: transform 0.2s ease; cursor: none; }
+  .btn-primary:hover { transform: rotate(1deg) scale(1.03); }
+  .btn-ghost { color: var(--cream); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; cursor: none; transition: gap 0.2s ease; }
+  .btn-ghost:hover { gap: 1rem; }
+  .hero-stats { position: absolute; right: 4rem; bottom: 4rem; display: flex; flex-direction: column; gap: 2rem; z-index: 2; }
+  .hero-stat { text-align: right; }
+  .hero-stat-num { font-size: 3.5rem; font-weight: 900; color: var(--red); line-height: 1; letter-spacing: -2px; }
+  .hero-stat-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(241,232,214,0.5); }
+  .hero-sticker { position: absolute; right: 6rem; top: 50%; transform: translateY(-50%) rotate(12deg); width: 140px; height: 140px; background: var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center; z-index: 3; animation: float 4s ease-in-out infinite; }
+  .hero-sticker-text { font-size: 0.65rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); line-height: 1.4; }
+  @keyframes float { 0%, 100% { transform: translateY(-50%) rotate(12deg) translateY(0); } 50% { transform: translateY(-50%) rotate(12deg) translateY(-12px); } }
+
+  /* MARQUEE */
+  .marquee-section { background: var(--red); padding: 1rem 0; overflow: hidden; position: relative; z-index: 10; }
+  .marquee-track { display: flex; gap: 0; animation: marquee 20s linear infinite; width: max-content; }
+  .marquee-section:hover .marquee-track { animation-play-state: paused; }
+  .marquee-item { font-size: 1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cream); white-space: nowrap; padding: 0 2rem; display: flex; align-items: center; gap: 2rem; }
+  .marquee-item .dot { width: 8px; height: 8px; background: var(--cream); border-radius: 50%; opacity: 0.5; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SERVICES */
+  .services { padding: 8rem 4rem; background: var(--cream); position: relative; }
+  .section-tag { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem; }
+  .section-tag::before { content: ''; width: 30px; height: 2px; background: var(--red); }
+  .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 5rem; flex-wrap: wrap; gap: 2rem; }
+  .services-title { font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 900; line-height: 0.95; letter-spacing: -2px; text-transform: uppercase; }
+  .services-title .outline-text { -webkit-text-stroke: 2px var(--navy); color: transparent; }
+  .services-desc { font-size: 0.9rem; font-weight: 400; color: rgba(13,13,13,0.6); max-width: 320px; line-height: 1.7; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 2px solid var(--navy); }
+  .service-card { padding: 3rem 2.5rem; border-right: 2px solid var(--navy); border-bottom: 2px solid var(--navy); position: relative; overflow: hidden; cursor: none; transition: background 0.3s ease; background: var(--cream); }
+  .service-card:nth-child(3n) { border-right: none; }
+  .service-card:nth-child(n+4) { border-bottom: none; }
+  .service-card::before { content: ''; position: absolute; inset: 0; background: var(--navy); transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); z-index: 0; }
+  .service-card:hover::before { transform: translateY(0); }
+  .service-card:hover .service-num, .service-card:hover .service-name, .service-card:hover .service-desc { color: var(--cream); }
+  .service-card:hover .service-arrow { color: var(--red); }
+  .service-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; color: var(--red); margin-bottom: 2rem; position: relative; z-index: 1; transition: color 0.3s ease; }
+  .service-icon { font-size: 2rem; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+  .service-name { font-size: 1.3rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 1rem; position: relative; z-index: 1; transition: color 0.3s ease; }
+  .service-desc { font-size: 0.8rem; font-weight: 400; color: rgba(13,13,13,0.6); line-height: 1.7; position: relative; z-index: 1; transition: color 0.3s ease; }
+  .service-arrow { position: absolute; bottom: 2rem; right: 2.5rem; font-size: 1.5rem; color: var(--navy); z-index: 1; transition: color 0.3s ease; font-weight: 900; }
+
+  /* =================== WORK / PORTFOLIO =================== */
+  .work { padding: 8rem 4rem; background: var(--navy); position: relative; }
+  .work-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; flex-wrap: wrap; gap: 2rem; }
+  .work-title { font-size: clamp(3rem, 6vw, 7rem); font-weight: 900; line-height: 0.9; letter-spacing: -3px; text-transform: uppercase; color: var(--cream); }
+  .work-title .accent { color: var(--red); }
+  .work-link { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cream); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid rgba(241,232,214,0.3); padding-bottom: 0.3rem; cursor: none; transition: gap 0.2s ease, border-color 0.2s ease; }
+  .work-link:hover { gap: 1rem; border-color: var(--red); }
+  .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+  /* ── UPDATED WORK CARDS with illustrated backgrounds ── */
+  .work-card {
+    position: relative; overflow: hidden;
+    aspect-ratio: 4/3;
+    cursor: none;
+    text-decoration: none;
+    display: block;
+  }
+  .work-card.large { grid-column: span 1; grid-row: span 2; aspect-ratio: auto; }
+  .work-card-bg {
+    position: absolute; inset: 0;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+  .work-card:hover .work-card-bg { transform: scale(1.04); }
+
+  /* Card 1 — Zestora Foods: food & harvest colours */
+  .wc1-bg {
+    background: linear-gradient(160deg, #0d1f0a 0%, #16a34a 60%, #f97316 100%);
+  }
+  .wc1-illustration {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .wc1-plate {
+    width: 220px; height: 220px; border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #fff8f0, #fde68a 55%, #f97316);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 6rem;
+    animation: float-card 5s ease-in-out infinite;
+  }
+  @keyframes float-card { 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-12px) rotate(3deg)} }
+
+  /* Card 2 — NovaCraft: tech/social dark with phones */
+  .wc2-bg {
+    background: linear-gradient(160deg, #060614 0%, #3b0764 60%, #1a0533 100%);
+  }
+  .wc2-illustration {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+  }
+  .mini-phone {
+    border-radius: 18px; overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.15);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+  .mp-tall { width: 70px; height: 130px; transform: translateY(-15px); background: linear-gradient(160deg, #1a0533, #7c3aed); }
+  .mp-short { width: 70px; height: 100px; background: linear-gradient(160deg, #1a0022, #ec4899); }
+  .mp-screen { width: 100%; height: 100%; padding: 0.6rem; display: flex; flex-direction: column; justify-content: space-between; }
+  .mp-stat { font-size: 0.8rem; font-weight: 900; color: white; line-height: 1; }
+  .mp-label { font-size: 0.4rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .mp-bars { display: flex; gap: 3px; align-items: flex-end; height: 28px; }
+  .mp-bar { width: 6px; border-radius: 1px; }
+  .mp-bar.lit { background: rgba(255,255,255,0.8); }
+  .mp-bar.dim { background: rgba(255,255,255,0.2); }
+
+  /* Card 3 — Apex Realty: architectural dark gold */
+  .wc3-bg {
+    background: linear-gradient(160deg, #0a0a14 0%, #1a1a2e 100%);
+  }
+  .wc3-illustration {
+    position: absolute; inset: 0;
+    display: flex; align-items: flex-end; justify-content: center;
+    overflow: hidden;
+  }
+  .mini-buildings { display: flex; align-items: flex-end; gap: 6px; padding-bottom: 0; }
+  .mini-b {
+    border-radius: 3px 3px 0 0; position: relative; overflow: hidden;
+    background: linear-gradient(to top, #d4a843, rgba(212,168,67,0.3));
+  }
+  .mb-win { position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(0,0,0,0.5) 10px, rgba(0,0,0,0.5) 12px), repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(0,0,0,0.5) 8px, rgba(0,0,0,0.5) 10px); }
+  .ground-line { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: rgba(212,168,67,0.5); }
+  .city-glow { position: absolute; bottom: 0; left: 0; right: 0; height: 100px; background: radial-gradient(ellipse at 50% 100%, rgba(212,168,67,0.2), transparent 70%); }
+
+  /* Card 4 — LuxWear: rich rose editorial */
+  .wc4-bg {
+    background: linear-gradient(160deg, #1a0a12 0%, #be185d 100%);
+  }
+  .wc4-illustration {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px;
+  }
+  .fabric-swatch {
+    width: 70px; border-radius: 4px; position: relative; overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+  .fs-1 { height: 180px; background: linear-gradient(160deg, #be185d, #f472b6); transform: rotate(-4deg) translateY(-10px); }
+  .fs-2 { height: 150px; background: linear-gradient(160deg, #1a0a12, #2d1b2e); }
+  .fs-3 { height: 165px; background: linear-gradient(160deg, #fce7f3, #fda4af); transform: rotate(3deg) translateY(-5px); }
+  .fs-tex { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 1px, transparent 1px, transparent 6px); }
+
+  /* Shared overlay */
+  .work-card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(13,13,13,0.9) 0%, rgba(13,13,13,0.3) 50%, transparent 100%);
+    opacity: 0; transition: opacity 0.3s ease;
+    display: flex; align-items: flex-end;
+    padding: 2rem;
+  }
+  .work-card:hover .work-card-overlay { opacity: 1; }
+  /* Always-visible bottom info strip */
+  .work-card-strip {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1.5rem 2rem 1.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+  }
+  .work-card-info { }
+  .work-card-cat { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 0.4rem; }
+  .work-card-name { font-size: 1.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.5px; color: var(--cream); line-height: 1.1; }
+  .work-card-label { position: absolute; top: 1.5rem; left: 1.5rem; background: var(--cream); font-size: 0.6rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.3rem 0.8rem; color: var(--navy); transform: rotate(-2deg); }
+  .work-card-arrow { position: absolute; top: 1.5rem; right: 1.5rem; width: 36px; height: 36px; background: var(--red); display: flex; align-items: center; justify-content: center; font-size: 1rem; color: white; font-weight: 900; opacity: 0; transition: opacity 0.3s ease; transform: rotate(45deg); }
+  .work-card:hover .work-card-arrow { opacity: 1; }
+  .work-card-num { position: absolute; bottom: 1.5rem; right: 2rem; font-size: 5rem; font-weight: 900; color: rgba(255,255,255,0.06); line-height: 1; letter-spacing: -3px; }
+
+  /* PROCESS */
+  .process { padding: 8rem 4rem; background: var(--cream); }
+  .process-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .process-left { position: sticky; top: 8rem; }
+  .process-title { font-size: clamp(2.5rem, 4vw, 4.5rem); font-weight: 900; line-height: 0.9; letter-spacing: -2px; text-transform: uppercase; margin-bottom: 1.5rem; }
+  .process-title .stamp { display: inline-block; background: var(--red); color: var(--white); padding: 0 0.5rem; transform: rotate(-2deg); line-height: 1.1; }
+  .process-intro { font-size: 0.9rem; font-weight: 400; color: rgba(13,13,13,0.6); line-height: 1.8; max-width: 380px; margin-bottom: 3rem; }
+  .process-big-num { font-size: 8rem; font-weight: 900; color: rgba(46,76,139,0.08); letter-spacing: -5px; line-height: 1; margin-top: 2rem; }
+  .process-steps { display: flex; flex-direction: column; gap: 0; }
+  .process-step { padding: 2.5rem 0; border-bottom: 1px solid rgba(13,13,13,0.1); display: grid; grid-template-columns: 60px 1fr; gap: 1.5rem; align-items: start; cursor: none; transition: padding-left 0.3s ease; }
+  .process-step:first-child { border-top: 1px solid rgba(13,13,13,0.1); }
+  .process-step:hover { padding-left: 1rem; }
+  .step-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; color: var(--red); padding-top: 0.3rem; }
+  .step-name { font-size: 1.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 0.7rem; }
+  .step-desc { font-size: 0.82rem; font-weight: 400; color: rgba(13,13,13,0.6); line-height: 1.7; }
+
+  /* CLIENTS */
+  .clients { padding: 6rem 4rem; background: var(--black); position: relative; overflow: hidden; }
+  .clients-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.3); text-align: center; margin-bottom: 4rem; }
+  .clients-logos { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border: 1px solid rgba(255,255,255,0.08); }
+  .client-logo { padding: 3rem 2rem; border-right: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; cursor: none; transition: background 0.3s ease; }
+  .client-logo:nth-child(5n) { border-right: none; }
+  .client-logo:nth-child(n+6) { border-bottom: none; }
+  .client-logo:hover { background: rgba(250,45,25,0.1); }
+  .client-name { font-size: 1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.2); transition: color 0.3s ease; }
+  .client-logo:hover .client-name { color: rgba(255,255,255,0.7); }
+
+  /* RESULTS */
+  .results { padding: 8rem 4rem; background: var(--red); position: relative; overflow: hidden; }
+  .results::before { content: 'RESULTS'; position: absolute; top: -2rem; left: -1rem; font-size: 15rem; font-weight: 900; color: rgba(255,255,255,0.05); letter-spacing: -8px; line-height: 1; pointer-events: none; white-space: nowrap; }
+  .results-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; z-index: 2; border: 2px solid rgba(255,255,255,0.2); }
+  .result-item { padding: 4rem 3rem; border-right: 2px solid rgba(255,255,255,0.2); text-align: center; }
+  .result-item:last-child { border-right: none; }
+  .result-num { font-size: clamp(3.5rem, 6vw, 6rem); font-weight: 900; color: var(--white); letter-spacing: -3px; line-height: 1; margin-bottom: 0.5rem; }
+  .result-suffix { font-size: clamp(2rem, 4vw, 4rem); color: rgba(255,255,255,0.4); }
+  .result-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+
+  /* TESTIMONIALS */
+  .testimonials { padding: 8rem 4rem; background: var(--cream); position: relative; }
+  .testimonials-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 5rem; flex-wrap: wrap; gap: 2rem; }
+  .testimonials-title { font-size: clamp(3rem, 5vw, 6rem); font-weight: 900; line-height: 0.9; letter-spacing: -2px; text-transform: uppercase; }
+  .testimonials-title .navy { color: var(--navy); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .testimonial-card { background: var(--white); padding: 3rem 2.5rem; position: relative; border: 2px solid transparent; transition: border-color 0.3s ease, transform 0.3s ease; cursor: none; }
+  .testimonial-card:hover { border-color: var(--navy); transform: translateY(-4px); }
+  .testimonial-card.featured { background: var(--navy); }
+  .testimonial-quote { font-size: 4rem; font-weight: 900; color: var(--red); line-height: 0.7; margin-bottom: 1.5rem; font-family: Georgia, serif; }
+  .testimonial-text { font-size: 0.9rem; font-weight: 500; line-height: 1.8; margin-bottom: 2rem; color: var(--black); }
+  .testimonial-card.featured .testimonial-text { color: var(--cream); }
+  .testimonial-person { display: flex; align-items: center; gap: 1rem; }
+  .person-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 800; flex-shrink: 0; }
+  .person-name { font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+  .testimonial-card.featured .person-name { color: var(--cream); }
+  .person-role { font-size: 0.7rem; font-weight: 500; color: rgba(13,13,13,0.5); }
+  .testimonial-card.featured .person-role { color: rgba(241,232,214,0.5); }
+  .testimonial-stamp { position: absolute; top: -12px; right: 2rem; background: var(--red); color: var(--white); font-size: 0.55rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.3rem 0.8rem; transform: rotate(2deg); }
+
+  /* MANIFESTO */
+  .manifesto { padding: 10rem 4rem; background: var(--navy); text-align: center; position: relative; overflow: hidden; }
+  .manifesto-bg-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 20rem; font-weight: 900; color: rgba(255,255,255,0.02); letter-spacing: -10px; pointer-events: none; user-select: none; }
+  .manifesto-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--red); margin-bottom: 2rem; }
+  .manifesto-text { font-size: clamp(1.8rem, 4vw, 4rem); font-weight: 900; color: var(--cream); line-height: 1.2; letter-spacing: -1px; max-width: 900px; margin: 0 auto 3rem; text-transform: uppercase; position: relative; z-index: 2; }
+  .manifesto-text .highlight { color: var(--red); text-decoration: underline; text-decoration-color: rgba(250,45,25,0.4); text-underline-offset: 6px; }
+  .manifesto-text .outline { -webkit-text-stroke: 1px var(--cream); color: transparent; }
+
+  /* TEAM */
+  .team { padding: 8rem 4rem; background: var(--cream); }
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 4rem; border: 2px solid var(--navy); }
+  .team-card { padding: 2.5rem 2rem; border-right: 2px solid var(--navy); position: relative; overflow: hidden; cursor: none; transition: background 0.3s ease; }
+  .team-card:last-child { border-right: none; }
+  .team-card:hover { background: var(--navy); }
+  .team-card:hover .team-name, .team-card:hover .team-role { color: var(--cream); }
+  .team-avatar-box { width: 80px; height: 80px; background: var(--navy); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 900; color: var(--cream); position: relative; transition: background 0.3s ease; }
+  .team-card:hover .team-avatar-box { background: var(--red); }
+  .team-name { font-size: 1rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.3px; margin-bottom: 0.3rem; transition: color 0.3s ease; }
+  .team-role { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(13,13,13,0.4); transition: color 0.3s ease; }
+  .team-card:hover .team-role { color: rgba(241,232,214,0.5); }
+
+  /* CTA */
+  .cta-section { padding: 8rem 4rem; background: var(--black); text-align: center; position: relative; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(250,45,25,0.15) 0%, transparent 70%); pointer-events: none; }
+  .cta-title { font-size: clamp(3rem, 8vw, 9rem); font-weight: 900; line-height: 0.9; letter-spacing: -4px; text-transform: uppercase; color: var(--cream); margin-bottom: 2rem; position: relative; z-index: 2; }
+  .cta-title .red { color: var(--red); }
+  .cta-title .outline { -webkit-text-stroke: 2px var(--cream); color: transparent; }
+  .cta-sub { font-size: 1rem; font-weight: 400; color: rgba(241,232,214,0.5); margin-bottom: 3rem; position: relative; z-index: 2; }
+  .cta-btn { display: inline-block; background: var(--red); color: var(--white); font-size: 0.85rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 1.2rem 4rem; text-decoration: none; position: relative; z-index: 2; cursor: none; transform: rotate(-0.5deg); transition: transform 0.2s ease, background 0.2s ease; }
+  .cta-btn:hover { transform: rotate(1deg) scale(1.05); background: var(--red-dark); }
+  .cta-email { display: block; margin-top: 2rem; font-size: 0.8rem; font-weight: 600; color: rgba(241,232,214,0.3); text-decoration: none; letter-spacing: 0.05em; position: relative; z-index: 2; transition: color 0.2s ease; cursor: none; }
+  .cta-email:hover { color: var(--cream); }
+
+  /* FOOTER */
+  footer { background: var(--navy-dark); padding: 4rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; align-items: start; border-top: 4px solid var(--red); }
+  .footer-brand-name { font-size: 2.5rem; font-weight: 900; color: var(--cream); letter-spacing: -2px; text-transform: uppercase; margin-bottom: 1rem; }
+  .footer-tagline { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(241,232,214,0.4); margin-bottom: 1.5rem; }
+  .footer-social { display: flex; gap: 0.8rem; }
+  .social-btn { width: 36px; height: 36px; border: 1px solid rgba(241,232,214,0.2); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 800; color: rgba(241,232,214,0.5); text-decoration: none; cursor: none; transition: background 0.2s ease, color 0.2s ease; }
+  .social-btn:hover { background: var(--red); color: var(--white); border-color: var(--red); }
+  .footer-col-title { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(241,232,214,0.4); margin-bottom: 1.5rem; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+  .footer-links a { text-decoration: none; font-size: 0.85rem; font-weight: 500; color: rgba(241,232,214,0.6); cursor: none; transition: color 0.2s ease; }
+  .footer-links a:hover { color: var(--cream); }
+  .footer-bottom { background: var(--navy-dark); padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(241,232,214,0.1); font-size: 0.7rem; font-weight: 500; color: rgba(241,232,214,0.3); letter-spacing: 0.05em; }
+
+  /* SCROLL ANIMATIONS */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    nav { padding: 1rem 2rem; }
+    .services, .work, .process, .clients, .results, .testimonials, .manifesto, .team, .cta-section { padding: 4rem 2rem; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .work-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: repeat(3, 1fr); }
+    footer { grid-template-columns: 2fr 1fr 1fr; }
+  }
+  @media (max-width: 900px) {
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+    nav { padding: 1rem 1.5rem; background: var(--cream) !important; flex-wrap: wrap; align-items: center; }
+    .nav-logo { font-size: 1.2rem; padding: 0.2rem 0.8rem; background: var(--navy-dark) !important; color: var(--cream) !important; }
+    .nav-container { display: none; }
+    .hamburger { display: flex; }
+    .hero { padding: 5rem 1.5rem 2rem; min-height: 90vh; }
+    .hero-headline { font-size: clamp(2rem, 7vw, 4rem); letter-spacing: -1px; }
+    .hero-stats { right: 1.5rem; bottom: 2rem; gap: 1rem; }
+    .hero-stat-num { font-size: 2rem; }
+    .hero-sticker { display: none; }
+    .hero-ctas { flex-direction: column; width: 100%; }
+    .services { padding: 3rem 1.5rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .service-card { border-right: none; border-bottom: 2px solid var(--navy); }
+    .service-card:last-child { border-bottom: none; }
+    .work { padding: 3rem 1.5rem; }
+    .work-grid { grid-template-columns: 1fr; }
+    .work-card { aspect-ratio: 16/10; }
+    .wc1-plate { width: 150px; height: 150px; font-size: 4rem; }
+    .process { padding: 3rem 1.5rem; }
+    .process-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .process-left { position: static; }
+    .clients { padding: 3rem 1.5rem; }
+    .clients-logos { grid-template-columns: repeat(2, 1fr); }
+    .results { padding: 3rem 1.5rem; }
+    .results-grid { grid-template-columns: repeat(2, 1fr); }
+    .result-item { padding: 2rem 1rem; border-right: none; }
+    .result-item:nth-child(2n+1) { border-right: 2px solid rgba(255,255,255,0.2); }
+    .testimonials { padding: 3rem 1.5rem; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .manifesto { padding: 3rem 1.5rem; }
+    .team { padding: 3rem 1.5rem; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
+    .cta-section { padding: 3rem 1.5rem; }
+    footer { grid-template-columns: 1fr; padding: 2rem 1.5rem; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+  }
+  @media (max-width: 600px) {
+    .services-grid, .results-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="HomePage.html" class="nav-logo" id="navLogo">Brandent</a>
+  <div class="nav-container">
+    <ul class="nav-links" id="navLinks">
+      <li><a href="Services.html">Services</a></li>
+      <li><a href="Work.html">Work</a></li>
+      <li><a href="Process.html">Process</a></li>
+      <li><a href="Clients.html">Clients</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="Contact.html">Contact</a></li>
+    </ul>
+    <a href="Contact.html" class="nav-cta" id="navCta">Start a Project →</a>
+  </div>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <ul class="mobile-nav-links">
+    <li><a href="Services.html">Services</a></li>
+    <li><a href="Work.html">Work</a></li>
+    <li><a href="Process.html">Process</a></li>
+    <li><a href="Clients.html">Clients</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="Contact.html">Contact</a></li>
+  </ul>
+  <a href="Contact.html" class="mobile-nav-cta">Start a Project</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-texture"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">The Marketing Enterprise</div>
+    <h1 class="hero-headline">We Build<br><span class="outline">Brands</span><br><span class="red-word">That Stay.</span></h1>
+    <p class="hero-sub">You've seen thousands. What stayed? We go beyond the visible — into what creates recall. Strategy, content, design. Moving as one.</p>
+    <div class="hero-ctas">
+      <a href="#work" class="btn-primary">See Our Work</a>
+      <a href="Services.html" class="btn-ghost">Explore Services →</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num">265+</div><div class="hero-stat-label">Brands Elevated</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">5+</div><div class="hero-stat-label">Years in Market</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">98%</div><div class="hero-stat-label">Client Retention</div></div>
+  </div>
+  <div class="hero-sticker"><div class="hero-sticker-text">5 Years<br>265+<br>Brands<br>★★★★★</div></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marqueeTrack">
+    <div class="marquee-item">Social Media Marketing <span class="dot"></span></div>
+    <div class="marquee-item">Brand Strategy <span class="dot"></span></div>
+    <div class="marquee-item">Influencer Marketing <span class="dot"></span></div>
+    <div class="marquee-item">Website Development <span class="dot"></span></div>
+    <div class="marquee-item">Creative Content <span class="dot"></span></div>
+    <div class="marquee-item">Performance Ads <span class="dot"></span></div>
+    <div class="marquee-item">SEO & Growth <span class="dot"></span></div>
+    <div class="marquee-item">Brand Identity <span class="dot"></span></div>
+    <div class="marquee-item">Social Media Marketing <span class="dot"></span></div>
+    <div class="marquee-item">Brand Strategy <span class="dot"></span></div>
+    <div class="marquee-item">Influencer Marketing <span class="dot"></span></div>
+    <div class="marquee-item">Website Development <span class="dot"></span></div>
+    <div class="marquee-item">Creative Content <span class="dot"></span></div>
+    <div class="marquee-item">Performance Ads <span class="dot"></span></div>
+    <div class="marquee-item">SEO & Growth <span class="dot"></span></div>
+    <div class="marquee-item">Brand Identity <span class="dot"></span></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header reveal">
+    <div>
+      <div class="section-tag">What We Do</div>
+      <h2 class="services-title">Our<br><span class="outline-text">Services</span></h2>
+    </div>
+    <p class="services-desc">No silos. No delays. Just strategy, content & design moving as one — built to make your brand impossible to ignore.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-num">01</div><div class="service-icon">📱</div>
+      <div class="service-name">Social Media Marketing</div>
+      <div class="service-desc">Stories that educate the right consumer. We frame content creatively, re-purpose it intelligently, and build communities that convert.</div>
+      <div class="service-arrow">↗</div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-num">02</div><div class="service-icon">🌟</div>
+      <div class="service-name">Influencer Marketing</div>
+      <div class="service-desc">250+ creator partnerships and counting. We position your brand through trusted voices that build credibility and drive real purchase decisions.</div>
+      <div class="service-arrow">↗</div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-num">03</div><div class="service-icon">💻</div>
+      <div class="service-name">Website Development</div>
+      <div class="service-desc">From e-commerce to brand platforms — we reduce friction, increase conversions, and build digital storefronts that actually sell.</div>
+      <div class="service-arrow">↗</div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-num">04</div><div class="service-icon">🎨</div>
+      <div class="service-name">Creative Content</div>
+      <div class="service-desc">Conceptualised, directed, and delivered — photography, video, and design that not only looks premium but is built to perform.</div>
+      <div class="service-arrow">↗</div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-num">05</div><div class="service-icon">🧭</div>
+      <div class="service-name">Brand Strategy</div>
+      <div class="service-desc">We are obsessed with branding. Whether it's a name, a logo, or a complete identity system — we create, design, and define what makes you unforgettable.</div>
+      <div class="service-arrow">↗</div>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <div class="service-num">06</div><div class="service-icon">📊</div>
+      <div class="service-name">Performance Advertising</div>
+      <div class="service-desc">Rooted in data, precision, and scalability. We've taken brands from 1.27X to 3.73X ROAS in 3 months. Every rupee accountable.</div>
+      <div class="service-arrow">↗</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="work" id="work">
+  <div class="work-header reveal">
+    <h2 class="work-title">Selected<br><span class="accent">Work</span></h2>
+    <a href="Work.html" class="work-link">View All Projects →</a>
+  </div>
+  <div class="work-grid">
+
+    <!-- CARD 1: Kala Johare -->
+    <a href="#work" class="work-card large reveal">
+      <div class="work-card-bg">
+        <div class="wc1-bg" style="position:absolute;inset:0;background:linear-gradient(160deg,#1a0012 0%,#7b1226 60%,#c41e3a 100%)"></div>
+        <div class="wc1-illustration">
+          <div class="wc1-plate" style="background:radial-gradient(circle at 40% 35%,#fff8f0,#fde68a 55%,#d4a843);font-size:5rem">💎</div>
+        </div>
+        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,0.03)0px,rgba(255,255,255,0.03)1px,transparent 1px,transparent 20px)"></div>
+      </div>
+      <div class="work-card-label">Brand Identity</div>
+      <div class="work-card-arrow">↗</div>
+      <div class="work-card-num">01</div>
+      <div class="work-card-strip">
+        <div class="work-card-cat">Brand Identity + Storytelling</div>
+        <div class="work-card-name">Kala Johare — Global Rebrand</div>
+      </div>
+      <div class="work-card-overlay">
+        <div class="work-card-info">
+          <div class="work-card-cat">Brand Identity + Storytelling</div>
+          <div class="work-card-name">Kala Johare — A brand that looks global, but still belongs to Jaipur</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- CARD 2: SMC Global -->
+    <a href="#work" class="work-card reveal reveal-delay-1">
+      <div class="work-card-bg">
+        <div class="wc2-bg" style="position:absolute;inset:0"></div>
+        <div class="wc2-illustration">
+          <div class="mini-phone mp-tall">
+            <div class="mp-screen">
+              <div><div class="mp-stat">32.3K</div><div class="mp-label">Followers</div></div>
+              <div class="mp-bars">
+                <div class="mp-bar dim" style="height:20%"></div>
+                <div class="mp-bar lit" style="height:45%"></div>
+                <div class="mp-bar lit" style="height:70%"></div>
+                <div class="mp-bar lit" style="height:88%"></div>
+                <div class="mp-bar lit" style="height:100%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mini-phone mp-short">
+            <div class="mp-screen" style="background:linear-gradient(160deg,#1a0022,#ec4899)">
+              <div><div class="mp-stat">1.5M+</div><div class="mp-label">Views</div></div>
+              <div class="mp-bars">
+                <div class="mp-bar lit" style="height:60%"></div>
+                <div class="mp-bar lit" style="height:80%"></div>
+                <div class="mp-bar lit" style="height:100%"></div>
+                <div class="mp-bar dim" style="height:40%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.02)0px,rgba(255,255,255,0.02)1px,transparent 1px,transparent 40px)"></div>
+      </div>
+      <div class="work-card-label">Social</div>
+      <div class="work-card-arrow">↗</div>
+      <div class="work-card-num">02</div>
+      <div class="work-card-strip">
+        <div class="work-card-cat">Social Media + Influencer</div>
+        <div class="work-card-name">SMC Global — 6.75K to 32.3K in 12 months</div>
+      </div>
+      <div class="work-card-overlay">
+        <div class="work-card-info">
+          <div class="work-card-cat">Social Media + Influencer</div>
+          <div class="work-card-name">SMC Global — 1.5M+ views, 250+ creator pieces, stagnant to scaling</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- CARD 3: IDCULT -->
+    <a href="#work" class="work-card reveal reveal-delay-2">
+      <div class="work-card-bg">
+        <div class="wc3-bg" style="position:absolute;inset:0;background:linear-gradient(160deg,#0a0a0a 0%,#1a1a1a 100%)"></div>
+        <div class="wc3-illustration">
+          <div class="mini-buildings">
+            <div class="mini-b" style="width:50px;height:200px;background:linear-gradient(to top,#f5c518,rgba(245,197,24,0.3))"><div class="mb-win"></div></div>
+            <div class="mini-b" style="width:70px;height:280px;background:linear-gradient(to top,#f5c518,rgba(245,197,24,0.5))"><div class="mb-win"></div></div>
+            <div class="mini-b" style="width:45px;height:180px;background:linear-gradient(to top,#f5c518,rgba(245,197,24,0.2))"><div class="mb-win"></div></div>
+            <div class="mini-b" style="width:38px;height:140px;background:linear-gradient(to top,#f5c518,rgba(245,197,24,0.2))"><div class="mb-win"></div></div>
+          </div>
+          <div class="city-glow" style="background:radial-gradient(ellipse at 50% 100%,rgba(245,197,24,0.25),transparent 70%)"></div>
+          <div class="ground-line" style="background:rgba(245,197,24,0.4)"></div>
+        </div>
+        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,rgba(245,197,24,0.03)0px,rgba(245,197,24,0.03)1px,transparent 1px,transparent 40px)"></div>
+      </div>
+      <div class="work-card-label">Performance + Web</div>
+      <div class="work-card-arrow">↗</div>
+      <div class="work-card-num">03</div>
+      <div class="work-card-strip">
+        <div class="work-card-cat">Performance Marketing + Website</div>
+        <div class="work-card-name">IDCULT — 6.91X ROAS through creative testing</div>
+      </div>
+      <div class="work-card-overlay">
+        <div class="work-card-info">
+          <div class="work-card-cat">Performance Marketing + Website</div>
+          <div class="work-card-name">IDCULT — 6X conversion growth, digital storefront built to sell</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- CARD 4: Bench Deli -->
+    <a href="#work" class="work-card reveal reveal-delay-3">
+      <div class="work-card-bg">
+        <div class="wc4-bg" style="position:absolute;inset:0;background:linear-gradient(160deg,#1a0800 0%,#7c3200 100%)"></div>
+        <div class="wc4-illustration">
+          <div class="fabric-swatch fs-1" style="background:linear-gradient(160deg,#7c3200,#d4622a)"><div class="fs-tex"></div></div>
+          <div class="fabric-swatch fs-2" style="background:linear-gradient(160deg,#1a0800,#3d1a00)"><div class="fs-tex"></div></div>
+          <div class="fabric-swatch fs-3" style="background:linear-gradient(160deg,#f5deb3,#d4a855)"><div class="fs-tex"></div></div>
+        </div>
+        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,0.03)0px,rgba(255,255,255,0.03)1px,transparent 1px,transparent 15px)"></div>
+      </div>
+      <div class="work-card-label">Social + Content</div>
+      <div class="work-card-arrow">↗</div>
+      <div class="work-card-num">04</div>
+      <div class="work-card-strip">
+        <div class="work-card-cat">Social Media + Content</div>
+        <div class="work-card-name">Bench Deli — 247K+ reach, 47% more walk-ins</div>
+      </div>
+      <div class="work-card-overlay">
+        <div class="work-card-info">
+          <div class="work-card-cat">Social Media + Content</div>
+          <div class="work-card-name">Bench Deli — Roman-inspired repositioning that filled tables</div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results">
+  <div class="results-grid">
+    <div class="result-item reveal"><div class="result-num">6.9<span class="result-suffix">×</span></div><div class="result-label">Peak ROAS Delivered</div></div>
+    <div class="result-item reveal reveal-delay-1"><div class="result-num">2.5<span class="result-suffix">M+</span></div><div class="result-label">Social Views Generated</div></div>
+    <div class="result-item reveal reveal-delay-2"><div class="result-num">265<span class="result-suffix">+</span></div><div class="result-label">Brands Elevated</div></div>
+    <div class="result-item reveal reveal-delay-3"><div class="result-num">₹12<span class="result-suffix">Cr+</span></div><div class="result-label">Revenue Generated for Clients</div></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="process-inner">
+    <div class="process-left reveal">
+      <div class="section-tag">How We Work</div>
+      <h2 class="process-title">Our<br><span class="stamp">Proven</span><br>Process</h2>
+      <p class="process-intro">No silos. No delays. Every project runs on a proven framework where strategy, content, and design move together — because that's the only way to build something that lasts.</p>
+      <div class="process-big-num">04</div>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal"><div class="step-num">01</div><div><div class="step-name">Discover & Diagnose</div><div class="step-desc">Deep-dive into your brand, market, competitors, and audience. We don't guess — we research until we understand your world better than anyone.</div></div></div>
+      <div class="process-step reveal reveal-delay-1"><div class="step-num">02</div><div><div class="step-name">Strategise & Architect</div><div class="step-desc">Build the strategic blueprint — positioning, messaging, channel mix, and creative direction. Everything connected, everything intentional.</div></div></div>
+      <div class="process-step reveal reveal-delay-2"><div class="step-num">03</div><div><div class="step-name">Create & Execute</div><div class="step-desc">Our creative and growth teams ship. Content, campaigns, websites, activations — executed with obsessive attention to quality and timing.</div></div></div>
+      <div class="process-step reveal reveal-delay-3"><div class="step-num">04</div><div><div class="step-name">Measure & Scale</div><div class="step-desc">Real-time analytics, transparent reporting, and continuous optimisation. What works gets amplified. What doesn't gets fixed fast.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients" id="clients">
+  <div class="clients-title reveal">Trusted By 265+ Brands</div>
+  <div class="clients-logos">
+    <div class="client-logo reveal"><div class="client-name">TONI&GUY</div></div>
+    <div class="client-logo reveal reveal-delay-1"><div class="client-name">IDCULT</div></div>
+    <div class="client-logo reveal reveal-delay-2"><div class="client-name">SMC Global</div></div>
+    <div class="client-logo reveal reveal-delay-3"><div class="client-name">Kanwarji's</div></div>
+    <div class="client-logo reveal reveal-delay-4"><div class="client-name">Shiv Naresh</div></div>
+    <div class="client-logo reveal"><div class="client-name">Abros</div></div>
+    <div class="client-logo reveal reveal-delay-1"><div class="client-name">Bench Deli</div></div>
+    <div class="client-logo reveal reveal-delay-2"><div class="client-name">APT Forever</div></div>
+    <div class="client-logo reveal reveal-delay-3"><div class="client-name">Sparky Jeans</div></div>
+    <div class="client-logo reveal reveal-delay-4"><div class="client-name">Mother Dairy</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-header reveal">
+    <h2 class="testimonials-title">What<br>Clients<br><span class="navy">Say</span></h2>
+    <div style="max-width:300px"><p style="font-size:0.9rem;line-height:1.8;color:rgba(13,13,13,0.6)">Don't take our word for it. Here's what the brands we've built have to say about working with Brandent.</p></div>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card featured reveal">
+      <div class="testimonial-stamp">⭐ Featured</div>
+      <div class="testimonial-quote">"</div>
+      <div class="testimonial-text">What Brandent did for our social media was more than content — they gave SMC a voice an entire generation actually wanted to follow. We went from stagnant to scaling in under a year. The numbers speak for themselves.</div>
+      <div class="testimonial-person">
+        <div class="person-avatar" style="background:var(--red);color:var(--white)">SK</div>
+        <div><div class="person-name">Saurabh Khanna</div><div class="person-role">Marketing Head, SMC Global</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-1">
+      <div class="testimonial-quote">"</div>
+      <div class="testimonial-text">The IDCULT website they built isn't just beautiful — it sells. Our ROAS went to 6.91 and conversions hit a new high. They understood that a good website isn't a design project, it's a business tool.</div>
+      <div class="testimonial-person">
+        <div class="person-avatar" style="background:var(--navy);color:var(--cream)">RA</div>
+        <div><div class="person-name">Rohan Aggarwal</div><div class="person-role">Founder, IDCULT</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-2">
+      <div class="testimonial-quote">"</div>
+      <div class="testimonial-text">Brandent repositioned Bench completely — the Roman aesthetic, the content, the creator collabs. Walk-ins went up 47% and people were coming in asking for dishes by name. That's brand recall working.</div>
+      <div class="testimonial-person">
+        <div class="person-avatar" style="background:var(--black);color:var(--cream)">AM</div>
+        <div><div class="person-name">Aditya Mehra</div><div class="person-role">Co-Founder, Bench Deli</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="manifesto-bg-text">B</div>
+  <div class="manifesto-eyebrow reveal">Our Belief</div>
+  <p class="manifesto-text reveal">Most of what works in marketing<br>isn't magic — it's <span class="highlight">clarity,</span><br><span class="outline">consistency,</span> and a lot of iteration.<br>We just enjoy being in that <span class="highlight">process.</span></p>
+  <a href="Contact.html" class="btn-primary reveal" style="display:inline-block;margin-top:1rem">Let's Build Something →</a>
+</section>
+
+<!-- TEAM -->
+<section class="team">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:0;flex-wrap:wrap;gap:2rem" class="reveal">
+    <div><div class="section-tag">The People</div><h2 class="services-title">Meet The<br><span class="outline-text">Team</span></h2></div>
+    <p class="services-desc">Two storytellers who disagreed — one chased performance, the other chased perception. That tension is exactly what makes Brandent work.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card reveal"><div class="team-avatar-box">RC</div><div class="team-name">Rajat Chawla</div><div class="team-role">Co-Founder — Strategy & Growth</div></div>
+    <div class="team-card reveal reveal-delay-1"><div class="team-avatar-box">TC</div><div class="team-name">Tanya Chawla</div><div class="team-role">Co-Founder — Creative & Content</div></div>
+    <div class="team-card reveal reveal-delay-2"><div class="team-avatar-box">BS</div><div class="team-name">Base Studio</div><div class="team-role">In-House Production Studio</div></div>
+    <div class="team-card reveal reveal-delay-3"><div class="team-avatar-box">265</div><div class="team-name">265+ Brands</div><div class="team-role">And counting — across India & beyond</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="cta-title reveal">Ready To<br><span class="red">Grow</span><br><span class="outline">Your Brand?</span></h2>
+  <p class="cta-sub reveal">No silos. No delays. Just ideas that execute at speed. First call is always on us.</p>
+  <a href="Contact.html" class="cta-btn reveal">Start A Conversation →</a>
+  <a href="mailto:hello@brandent.in" class="cta-email reveal">hello@brandent.in</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand-name">Brandent</div>
+    <div class="footer-tagline">The Marketing Enterprise</div>
+    <div class="footer-social">
+      <a href="#" class="social-btn">IG</a>
+      <a href="#" class="social-btn">LI</a>
+      <a href="#" class="social-btn">TW</a>
+      <a href="#" class="social-btn">YT</a>
+    </div>
+  </div>
+  <div>
+    <div class="footer-col-title">Services</div>
+    <ul class="footer-links">
+      <li><a href="#">Social Media</a></li>
+      <li><a href="#">Influencer Marketing</a></li>
+      <li><a href="#">Website Development</a></li>
+      <li><a href="#">Brand Strategy</a></li>
+      <li><a href="#">Creative Content</a></li>
+      <li><a href="#">Performance Ads</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Company</div>
+    <ul class="footer-links">
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Our Work</a></li>
+      <li><a href="#">Case Studies</a></li>
+      <li><a href="#">Team</a></li>
+      <li><a href="#">Careers</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Get In Touch</div>
+    <ul class="footer-links">
+      <li><a href="mailto:hello@brandent.in">hello@brandent.in</a></li>
+      <li><a href="#">New Delhi & Noida, India</a></li>
+      <li><a href="https://brandent.in">www.brandent.in</a></li>
+      <li style="margin-top:1rem"><a href="Contact.html" style="background:var(--red);color:#fff;padding:0.6rem 1.2rem;font-size:0.7rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase">Start Project →</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2026 Brandent. All rights reserved.</span>
+  <span>The Marketing Enterprise — Built to Last</span>
+</div>
+
+<script>
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a, .mobile-nav-cta');
+  hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); mobileNav.classList.toggle('active'); });
+  mobileNavLinks.forEach(link => { link.addEventListener('click', () => { hamburger.classList.remove('active'); mobileNav.classList.remove('active'); }); });
+
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  const isTouchDevice = () => ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  if (!isTouchDevice()) {
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    const updateRing = () => {
+      rx += (mx - rx) * 0.1; ry += (my - ry) * 0.1;
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(updateRing);
+    };
+    updateRing();
+    document.querySelectorAll('a, button, .service-card, .work-card, .team-card, .client-logo, .testimonial-card').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.style.width = '30px'; cursor.style.height = '30px'; cursor.style.background = '#2e4c8b'; ring.style.width = '60px'; ring.style.height = '60px'; });
+      el.addEventListener('mouseleave', () => { cursor.style.width = '16px'; cursor.style.height = '16px'; cursor.style.background = '#fa2d19'; ring.style.width = '40px'; ring.style.height = '40px'; });
+    });
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  reveals.forEach(r => revealObserver.observe(r));
+
+  // Nav scroll
+  const nav = document.getElementById('mainNav');
+  const navLogo = document.getElementById('navLogo');
+  const navCta = document.getElementById('navCta');
+  const navLinkEls = document.querySelectorAll('.nav-links a');
+  const setNavState = (scrolled) => {
+    if (scrolled) {
+      nav.style.background = 'rgba(241,232,214,0.95)'; nav.style.backdropFilter = 'blur(10px)';
+      navLogo.style.background = '#1a2f5e'; navLogo.style.color = '#f1e8d6';
+      navCta.style.background = '#fa2d19'; navCta.style.color = '#ffffff';
+      navLinkEls.forEach(a => a.style.color = '#0d0d0d');
+    } else {
+      nav.style.background = 'transparent'; nav.style.backdropFilter = 'none';
+      navLogo.style.background = '#f1e8d6'; navLogo.style.color = '#1a2f5e';
+      navCta.style.background = '#fa2d19'; navCta.style.color = '#f1e8d6';
+      navLinkEls.forEach(a => a.style.color = 'rgba(241,232,214,0.85)');
+    }
+  };
+  setNavState(false);
+  window.addEventListener('scroll', () => setNavState(window.scrollY > 100));
+</script>
+</body>
+</html>

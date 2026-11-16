@@ -1,0 +1,14 @@
+/* Layout blocks used by several inner pages (page hero, generic section). */
+
+  .page-hero-texture {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 80%, rgba(250,45,25,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(241,232,214,0.08) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .page-hero-content { position: relative; z-index: 2; max-width: 1200px; width: 100%; }
+  .outline-text {
+    -webkit-text-stroke: 2px var(--navy);
+    color: transparent;
+  }
